@@ -1,0 +1,475 @@
+{
+  fileTypes: [
+    'usp',
+    'usl'
+  ]
+  name: 'Simpl+'
+  patterns: [
+    { include: '#comments' }
+    { include: '#numbers' }
+    { include: '#strings' }
+    { include: '#keywords' }
+    { include: '#function_call' }
+    { include: '#constants' }
+  ]
+  repository:
+    function_call:
+      captures:
+        1:
+          name: 'support.function.any-method.splus'
+      match: '(\\w*)\\('
+      name: 'meta.function-call.splus'
+    comments:
+      patterns: [
+        {
+          captures:
+            1:
+              name: 'meta.toc-list.banner.block.splus'
+          match: '^/\\* =(\\s*.*?)\\s*= \\*/$\\n?'
+          name: 'comment.block.splus'
+        }
+        {
+          begin: '/\\*'
+          beginCaptures:
+            0:
+              name: 'punctuation.definition.comment.begin.splus'
+          end: '\\*/'
+          endCaptures:
+            0:
+              name: 'punctuation.definition.comment.end.splus'
+          name: 'comment.block.splus'
+        }
+        {
+          match: '\\*/.*\\n'
+          name: 'invalid.illegal.stray-comment-end.splus'
+        }
+        {
+          captures:
+            1:
+              name: 'meta.toc-list.banner.line.splus'
+          match: '^// =(\\s*.*?)\\s*=\\s*$\\n?'
+          name: 'comment.line.banner.c++'
+        }
+        {
+          begin: '(^[ \\t]+)?(?=//)'
+          beginCaptures:
+            1:
+              name: 'punctuation.whitespace.comment.leading.c++'
+          end: '(?!\\G)'
+          patterns: [
+            {
+              begin: '//'
+              beginCaptures:
+                0:
+                  name: 'punctuation.definition.comment.c++'
+              end: '\\n'
+              name: 'comment.line.double-slash.c++'
+              patterns: [
+                {
+                  include: '#line_continuation_character'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    numbers:
+      patterns: [
+        {
+          match: '\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b'
+          name: 'constant.numeric.splus'
+        }
+      ]
+    strings:
+      patterns: [
+        {
+          begin: '"'
+          beginCaptures:
+            0:
+              name: 'punctuation.definition.string.begin.splus'
+          end: '"'
+          endCaptures:
+            0:
+              name: 'punctuation.definition.string.end.splus'
+          name: 'string.quoted.double.splus'
+          patterns: [
+            {
+              include: '#string_escaped_char'
+            }
+            {
+              include: '#string_placeholder'
+            }
+            {
+              include: '#line_continuation_character'
+            }
+          ]
+        }
+        {
+          begin: '\''
+          beginCaptures:
+            0:
+              name: 'punctuation.definition.string.begin.splus'
+          end: '\''
+          endCaptures:
+            0:
+              name: 'punctuation.definition.string.end.splus'
+          name: 'string.quoted.single.splus'
+          patterns: [
+            {
+              include: '#string_escaped_char'
+            }
+            {
+              include: '#line_continuation_character'
+            }
+          ]
+        }
+      ]
+    string_escaped_char:
+      patterns: [
+        {
+          match: '\\\\(\\\\|[abefnprtv\'"?]|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8})'
+          name: 'constant.character.escape.splus'
+        }
+        {
+          match: '\\\\.'
+          name: 'invalid.illegal.unknown-escape.splus'
+        }
+      ]
+    string_placeholder:
+      patterns: [
+        {
+          match: '(%l{0,1}[duxX])|(%[sduxXc%])'
+          name: 'constant.other.placeholder.splus'
+        }
+        {
+          match: '%'
+          name: 'invalid.illegal.placeholder.splus'
+        }
+      ]
+    constants:
+      patterns: [
+        {
+          match: '\\b[A-Z_]+[A-Z0-9_]*\\b'
+          name: 'constant.language.splus'
+        }
+      ]
+    keywords:
+      patterns: [
+        {
+          match: '(^|\\b)(?i:(\
+            WRITESTRUCTURE|\
+            WRITESTRINGARRAY|\
+            WRITESTRING|\
+            WRITESIGNEDLONGINTEGERARRAY|\
+            WRITESIGNEDLONGINTEGER|\
+            WRITESIGNEDINTEGERARRAY|\
+            WRITESIGNEDINTEGER|\
+            WRITELONGINTEGERARRAY|\
+            WRITELONGINTEGER|\
+            WRITELNTEGERARRAY|\
+            WRITEINTEGER|\
+            WHILE|\
+            WAITFORNEWDISK|\
+            WAITFORINITIALIZATIONCOMPLETE|\
+            WAIT|\
+            VOLATILE|\
+            UTF16|\
+            UPPERCHAR|\
+            UPPER|\
+            TRY|\
+            TRACE|\
+            TOUTF16|\
+            TOASCII|\
+            TO|\
+            TIME|\
+            THREADSAFE|\
+            TERMINATEEVENT|\
+            TCP_CLIENT|\
+            SWITCH|\
+            STRUCTURE|\
+            STRING|\
+            STRING_PARAMETER|\
+            STRING_OUTPUT|\
+            STRING_INPUT|\
+            STRING_FUNCTION|\
+            STRING_FUNCTION|\
+            STOPRAMP|\
+            STARTFILEOPERATIONS|\
+            SOCKETUDP_ENABLE|\
+            SOCKETUDP_DISABLE|\
+            SOCKETSTATUS|\
+            SOCKETSERVERSTOPLISTEN|\
+            SOCKETSERVERSTARTLISTEN|\
+            SOCKETSEND|\
+            SOCKETRECEIVE|\
+            SOCKETLSBROADCAST|\
+            SOCKETISMULTICAST|\
+            SOCKETGETSTATUS|\
+            SOCKETGETSENDERLPADDRESS|\
+            SOCKETGETREMOTEIPADDRESS|\
+            SOCKETGETPORTNUMBER|\
+            SOCKETGETADDRESSASREQUESTED|\
+            SOCKETDISCONNECTCLIENT|\
+            SOCKETDISCONNECT|\
+            SOCKETCONNECTCLIENT|\
+            SOCKETCONNECT|\
+            SMIN|\
+            SMAX|\
+            SIGNED_LONG_INTEGER|\
+            SIGNED_LONG_INTEGER_PARAMETER|\
+            SIGNED_INTEGER|\
+            SIGNED_INTEGER_PARAMETER|\
+            SETSTRING|\
+            SETSLOT|\
+            SETGMTOFFSET|\
+            SETENCODING|\
+            SETDATE|\
+            SETCURRENTDIRECTORY|\
+            SETCRESNET|\
+            SETCLOCK|\
+            SETCIP|\
+            SETBYTE|\
+            SETARRAY|\
+            SENDPACKETTOCPU|\
+            SENDMAILWITHATTACHMENTS|\
+            SENDMAILADVANCE|\
+            SENDMAIL|\
+            SENDCRESNETPACKET|\
+            SEED|\
+            ROTATERIGHTLONG|\
+            ROTATERIGHT|\
+            ROTATELEFTLONG|\
+            ROTATELEFT|\
+            RND|\
+            RIGHT|\
+            REVERSEFINDNOCASE|\
+            REVERSEFIND|\
+            RETURN|\
+            RETIMEWAIT|\
+            RESUMEWAIT|\
+            RESUMEALLWAIT|\
+            RESIZESTRUCTUREARRAY|\
+            RESIZESTRING|\
+            RESIZEARRAY|\
+            REMOVEDIRECTORYSHARED|\
+            REMOVEDIRECTORY|\
+            REMOVEBYLENGTH|\
+            REMOVE|\
+            RELEASE|\
+            READSTRUCTURE|\
+            READSTRINGARRAY|\
+            READSTRING|\
+            READSIGNEDLONGLNTEGER|\
+            READSIGNEDLONGINTEGERARRAY|\
+            READSIGNEDLNTEGER|\
+            READSIGNEDINTEGERARRAY|\
+            READLONGLNTEGERARRAY|\
+            READLONGLNTEGER|\
+            READLNTEGERARRAY|\
+            READLNTEGER|\
+            RANDOM|\
+            PUSH|\
+            PULSE|\
+            PROCESSLOGIC|\
+            PRINT|\
+            PAUSEWAIT|\
+            PAUSEALLWAIT|\
+            PARAMETER_PROPERTIES|\
+            ON|\
+            OFF|\
+            NONVOLATILE|\
+            MULDIV|\
+            MONTH|\
+            MIN|\
+            MID|\
+            MAX|\
+            MAKESTRING|\
+            MAKEPROGRAMFILENAME|\
+            MAKEDIRECTORYSHARED|\
+            MAKEDIRECTORY|\
+            LTOHEX|\
+            LTOA|\
+            LOWWORD|\
+            LOWERCHAR|\
+            LOWER|\
+            LOW|\
+            LONG_INTEGER|\
+            LONG_INTEGER_PARAMETER|\
+            LEN|\
+            LEFT|\
+            ITOHEX|\
+            ITOA|\
+            ISVOLUME|\
+            ISSYSTEM|\
+            ISSIGNALDEFINED|\
+            ISREADONLY|\
+            ISRAMPING|\
+            ISNULL|\
+            ISHIDDEN|\
+            ISDIRECTORY|\
+            INTEGER|\
+            INTEGER_PARAMETER|\
+            INTEGER_FUNCTION|\
+            INTEGER_FUNCTION|\
+            INITIALIZERAMPINFOARRAY|\
+            INITIALIZERAMPINFO|\
+            INHERIT|\
+            IF|\
+            HIGHWORD|\
+            HIGH|\
+            HEXTOSL|\
+            HEXTOSI|\
+            HEXTOL|\
+            HEXTOI|\
+            GETYEARNUM|\
+            GETTICKS|\
+            GETSYMBOLREFERENCENAME|\
+            GETSYMBOLLNSTANCENAME|\
+            GETSLOT|\
+            GETSERIES|\
+            GETSECONDSNUM|\
+            GETRAMPINFO|\
+            GETPROGRAMNUMBER|\
+            GETNURNARRAYROWS|\
+            GETNUMSTRUCTUREARRAYCOLS|\
+            GETNUMARRAYCOLS|\
+            GETMONTHNUM|\
+            GETMODELNUMBER|\
+            GETMINUTESNUM|\
+            GETLASTMODIFIEDARRAYINDEX|\
+            GETHSECONDS|\
+            GETHOURNUM|\
+            GETGMTOFFSET|\
+            GETEXCEPTIONMESSAGE|\
+            GETEXCEPTIONCODE|\
+            GETENCODING|\
+            GETDST|\
+            GETDAYOFWEEKNUM|\
+            GETDATENUM|\
+            GETCURRENTDIRECTORY|\
+            GETCRESNET|\
+            GETCIP|\
+            GETC|\
+            GENERATEUSERWARNING|\
+            GENERATEUSERNOTICE|\
+            GENERATEUSERERROR|\
+            GATHERBYLENGTH|\
+            GATHER|\
+            FUNCTION|\
+            FOR|\
+            FINDNOCASE|\
+            FINDNEXT|\
+            FINDFIRSTSHARED|\
+            FINDFIRST|\
+            FINDCLOSE|\
+            FIND|\
+            FILEWRITE|\
+            FILETIME|\
+            FILESEEK|\
+            FILEREAD|\
+            FILEOPENSHARED|\
+            FILEOPEN|\
+            FILEMONTH|\
+            FILELENGTH|\
+            FILEGETYEARNUM|\
+            FILEGETSECONDSNUM|\
+            FILEGETMONTHNUM|\
+            FILEGETMINUTESNUM|\
+            FILEGETHOURNUM|\
+            FILEGETDAYOFWEEKNUM|\
+            FILEGETDATENUM|\
+            FILEEOF|\
+            FILEDELETESHARED|\
+            FILEDELETE|\
+            FILEDAY|\
+            FILEDATE|\
+            FILECLOSE|\
+            FILEBOF|\
+            EVENT|\
+            ENDFILEOPERATIONS|\
+            ELSE|\
+            DYNAMIC|\
+            DIGITAL_OUTPUT|\
+            DIGITAL_INPUT|\
+            DELAY|\
+            DEFAULT|\
+            DAY|\
+            DATE|\
+            CSWITCH|\
+            CREATERAMP|\
+            CONTINUE|\
+            COMPARESTRINGSNOCASE|\
+            COMPARESTRINGS|\
+            COMPARERAMPSBYLD|\
+            COMPARERAMPSBYATRIBUTE|\
+            CMUTEX|\
+            CLEARBUFFER|\
+            CHR|\
+            CHECKFORNVRAMDISK|\
+            CHECKFORDISK|\
+            CHANGE|\
+            CEVENT|\
+            CATCH|\
+            CASE|\
+            CANCELWAIT|\
+            CANCELALLWAIT|\
+            BYVAL|\
+            BYTE|\
+            BYREF|\
+            BUFFER_INPUT|\
+            BREAK|\
+            BIT|\
+            ATOL|\
+            ATOI|\
+            ASCII|\
+            ANALOG_OUTPUT|\
+            ANALOG_INPUT|\
+            ABS|\
+            #USER_SIMPLSHARP_LIBRARY|\
+            #USER_LIBRARY|\
+            #SYMBOL_NAME|\
+            #STRING_OUTPUT_JOIN|\
+            #STRING_INPUT_JOIN|\
+            #PRINT_TO_TRACE|\
+            #OUTPUT_SHIFT|\
+            #MAX_INTERNAL_BUFFER_SIZE|\
+            #LARGE_STACK|\
+            #INCLUDEPATH|\
+            #IF_SERIES3|\
+            #IF_SERIES2|\
+            #IF_NOT_DEFINED|\
+            #IF_DEFINED|\
+            #HINT|\
+            #HELP|\
+            #HELP_BEGIN|\
+            #ENDIF|\
+            #END_PARAMETER_PROPERTIES|\
+            #ENCODING_UTF16|\
+            #ENCODING_INHERIT_FROM_PROGRAM|\
+            #ENCODING_INHERIT_FROM_PARENT|\
+            #ENCODING_ASCII|\
+            #ENABLE_TRACE|\
+            #ENABLE_STACK_CHECKING|\
+            #ENABLE_DYNAMIC|\
+            #DIGITAL_OUTPUT_JOIN|\
+            #DIGITAL_INPUT_JOIN|\
+            #DIGITAL_EXPAND|\
+            #DEFINE_CONSTANT|\
+            #DEFAULT_VOLATILE|\
+            #DEFAULT_NONVOLATILE|\
+            #CRESTRON_SIMPLSHARP_LIBRARY|\
+            #CRESTRON_LIBRARY|\
+            #CATEGORY|\
+            #BEGIN_PARAMETER_PROPERTIES|\
+            #ANALOG_SERIAL_EXPAND|\
+            #ANALOG_OUTPUT_JOIN|\
+            #ANALOG_INPUT_JOIN|\
+            _SKIP_|\
+            _#HELP_END|\
+            _#ENDIF|\
+            _#ENDIF))\\b'
+          name: 'keyword.control.splus'
+        }
+      ]
+  scopeName: "source.splus"
+}

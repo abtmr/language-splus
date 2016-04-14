@@ -1,0 +1,24 @@
+{
+  "name": "language-splus",
+  "author": "Andy Bartelsmeier",
+  "version": "0.0.0",
+  "description": "Provides basic syntax highlighting for Simpl+ files",
+  "keywords": [
+    "crestron",
+    "simpl+",
+    "grammar",
+    "syntax"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abartelsmeier/language-splus.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ""
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/abartelsmeier/language-splus/issues"
+  }
+}
