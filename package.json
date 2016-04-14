@@ -1,7 +1,7 @@
 {
   "name": "language-splus",
   "author": "Andy Bartelsmeier",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Provides basic syntax highlighting for Simpl+ files",
   "keywords": [
     "crestron",
