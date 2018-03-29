@@ -176,6 +176,7 @@
             UTF16|\
             UPPERCHAR|\
             UPPER|\
+            UDP_SOCKET|\
             TRY|\
             TRACE|\
             TOUTF16|\
@@ -184,6 +185,7 @@
             TIME|\
             THREADSAFE|\
             TERMINATEEVENT|\
+            TCP_SERVER|\
             TCP_CLIENT|\
             SWITCH|\
             STRUCTURE|\
@@ -441,6 +443,8 @@
             #IF_DEFINED|\
             #HINT|\
             #HELP|\
+            #HELP_PDF_FILE|\
+            #HELP_END|\
             #HELP_BEGIN|\
             #ENDIF|\
             #END_PARAMETER_PROPERTIES|\
