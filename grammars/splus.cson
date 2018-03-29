@@ -138,7 +138,7 @@
     string_placeholder:
       patterns: [
         {
-          match: '(%l{0,1}[duxX])|(%[sduxXc%])'
+          match: '(%l{0,1}[duxX])|(%[sduxXc%])|(%[0-9]+[sduxXc])'
           name: 'constant.other.placeholder.splus'
         }
         {
