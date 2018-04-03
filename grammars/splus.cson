@@ -156,7 +156,7 @@
     keywords:
       patterns: [
         {
-          match: '(^|\\b)(?i:(\
+          match: '(^|\\s)(?i:(\
             WRITESTRUCTURE|\
             WRITESTRINGARRAY|\
             WRITESTRING|\
@@ -176,6 +176,14 @@
             UTF16|\
             UPPERCHAR|\
             UPPER|\
+            UPPER_BOUND|\
+            UNITTIME|\
+            UNITTICKS|\
+            UNITSTRING|\
+            UNITPERCENT|\
+            UNITHEX|\
+            UNITDECIMAL|\
+            UNITCHARACTER|\
             UDP_SOCKET|\
             TRY|\
             TRACE|\
@@ -261,7 +269,7 @@
             READSTRUCTURE|\
             READSTRINGARRAY|\
             READSTRING|\
-            READSIGNEDLONGLNTEGER|\
+            READSIGNEDLONGINTEGER|\
             READSIGNEDLONGINTEGERARRAY|\
             READSIGNEDLNTEGER|\
             READSIGNEDINTEGERARRAY|\
@@ -277,6 +285,12 @@
             PAUSEWAIT|\
             PAUSEALLWAIT|\
             PARAMETER_PROPERTIES|\
+            PROPVALIDUNITS|\
+            PROPSHORTDESCRIPTION|\
+            PROPLIST|\
+            PROPDEFAULTVALUE|\
+            PROPDEFAULTUNIT|\
+            PROPBOUNDS|\
             ON|\
             OFF|\
             NONVOLATILE|\
@@ -294,6 +308,7 @@
             LOWWORD|\
             LOWERCHAR|\
             LOWER|\
+            LOWER_BOUND|\
             LOW|\
             LONG_INTEGER|\
             LONG_INTEGER_PARAMETER|\
@@ -448,6 +463,8 @@
             #HELP_BEGIN|\
             #ENDIF|\
             #END_PARAMETER_PROPERTIES|\
+            #END_PROP_FULL_DESCRIPTION|\
+            #END_PROP_NOTES|\
             #ENCODING_UTF16|\
             #ENCODING_INHERIT_FROM_PROGRAM|\
             #ENCODING_INHERIT_FROM_PARENT|\
@@ -465,6 +482,8 @@
             #CRESTRON_LIBRARY|\
             #CATEGORY|\
             #BEGIN_PARAMETER_PROPERTIES|\
+            #BEGIN_PROP_FULL_DESCRIPTION|\
+            #BEGIN_PROP_NOTES|\
             #ANALOG_SERIAL_EXPAND|\
             #ANALOG_OUTPUT_JOIN|\
             #ANALOG_INPUT_JOIN|\
