@@ -156,7 +156,7 @@
     keywords:
       patterns: [
         {
-          match: '(^|\\b)(?i:(\
+          match: '(^|\\s)(?i:(\
             WRITESTRUCTURE|\
             WRITESTRINGARRAY|\
             WRITESTRING|\
