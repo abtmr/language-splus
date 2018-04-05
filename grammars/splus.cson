@@ -17,7 +17,7 @@
       captures:
         1:
           name: 'support.function.any-method.splus'
-      match: '(\\w*)\\('
+      match: '(\\w*)\\s*\\('
       name: 'meta.function-call.splus'
     comments:
       patterns: [
