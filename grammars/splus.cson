@@ -382,6 +382,7 @@
             READSTRING|\
             READSTRINGARRAY|\
             READSTRUCTURE|\
+            REGISTERDELEGATE|\
             RELEASE|\
             REMOVE|\
             REMOVEBYLENGTH|\
