@@ -217,6 +217,7 @@
             BYREF|\
             BYTE|\
             BYVAL|\
+            CALLBACK|\
             CANCELALLWAIT|\
             CANCELWAIT|\
             CASE|\
